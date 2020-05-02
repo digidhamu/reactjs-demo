@@ -3,6 +3,7 @@
 # Normally, git-fetch job
 # Once pulled, other script start use this script
 ###############################################################################
+rm -rf node_modules
 find . -mindepth 1 -exec rm -rf -- {} +
 git init
 git remote add origin git@github.com:digidhamu/reactjs-demo.git
