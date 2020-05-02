@@ -4,9 +4,6 @@ kubectl config set-context minikube
 
 SECRETNAME=art-pull-sec
 
-##############################################################################
-# OATH Based - Short Lived Requirements - Working
-##############################################################################
 kubectl delete secrets $SECRETNAME
 
 kubectl create secret docker-registry $SECRETNAME \
