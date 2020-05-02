@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: reactjs-demo
+spec:
+  replicas: 1
+  revisionHistoryLimit: 5
+
+  selector:
+    matchLabels:
+      app: reactjs-demo
+
+  template:
+    metadata:
+      labels:
+        app: reactjs-demo
+
+    spec:
+      imagePullSecrets:
+      - name: art-pull-sec
+      containers:
+      - name: reactjs-demo
+        image: minikube:32000/reactjs-demo
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+        resources:
+          limits:
+            cpu: 500m
+            memory: 256Mi
+          requests:
+            cpu: 50m
+            memory: 64Mi          
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: reactjs-demo
+spec:
+  type: NodePort
+  ports:
+  - name: reactjs-demo
+    port: 8008
+    targetPort: 80
+    nodePort: 32008
+  selector:
+    app: reactjs-demo
