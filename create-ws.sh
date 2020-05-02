@@ -1,6 +1,6 @@
 ###############################################################################
 # This script should be in the Jenkins configuration to initial the pull
-# Normally, git-fetch job
+# Normally, git fetch job
 # Once pulled, other script start use this script
 ###############################################################################
 git init
