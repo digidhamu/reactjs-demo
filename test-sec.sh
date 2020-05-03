@@ -3,7 +3,7 @@
 kubectl config set-context docker-desktop
 
 # Run OWASP ZAP security testing via docker container
-docker run \
+docker run --rm \
     -v "$(pwd):/zap/wrk/:rw" \
     -t owasp/zap2docker-stable zap-full-scan.py \
     -t http://192.168.64.32:32008 \
