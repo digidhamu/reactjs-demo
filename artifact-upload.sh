@@ -2,8 +2,7 @@
 
 export timestamp=`date +%Y-%m-%d"_"%H_%M_%S`
 
-# ART_PASS=$1
-ART_PASS=kannan123
+ART_PASS=$1
 
 tar -czvf \
     ./results_${timestamp}.tar.gz \
