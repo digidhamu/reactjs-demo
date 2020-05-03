@@ -25,6 +25,15 @@ curl -v \
         https://art.daas.digidhamu.com/repository/raw-daas-digidhamu/test-results/api-test-results.html \
     || exit 1
 
+cp ./e2e/cypress/videos/spec.js.mp4 ./results/func-test-results.mp4
+
+curl -v \
+    --user "admin:$ART_PASS" \
+    --http1.1 \
+    -T ./results/func-test-results.mp4 \
+        https://art.daas.digidhamu.com/repository/raw-daas-digidhamu/test-results/func-test-results.mp4 \
+    || exit 1
+
 sleep 2
 
 curl -v \

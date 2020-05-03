@@ -1,3 +1,4 @@
 #!/bin/bash
 
-echo "Functional Testing"
+cd e2e
+docker-compose up --exit-code-from cypress

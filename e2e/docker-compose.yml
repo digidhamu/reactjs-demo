@@ -1,0 +1,9 @@
+version: '3.2'
+services:
+  cypress:
+    image: "cypress/included:4.4.0"
+    environment:
+      - CYPRESS_baseUrl=http://192.168.64.32:32008
+    working_dir: /e2e
+    volumes:
+      - ./:/e2e
