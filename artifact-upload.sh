@@ -20,7 +20,7 @@ if [[ -f "./results_${timestamp}.tar.gz" ]]; then
     curl \
         --user "admin:$ART_PASS" \
         --http1.1 \
-        -T "./results_${timestamp}.tar.gz" \
+        -T ./results_${timestamp}.tar.gz \
             https://art.daas.digidhamu.com/repository/raw-daas-digidhamu/test-results/results_${timestamp}.tar.gz \
         || exit 1
 
@@ -34,7 +34,7 @@ if [[ -f "./results/$API_TEST_HTML" ]]; then
     curl \
         --user "admin:$ART_PASS" \
         --http1.1 \
-        -T "./results/$API_TEST_HTML" \
+        -T ./results/$API_TEST_HTML \
             https://art.daas.digidhamu.com/repository/raw-daas-digidhamu/test-results/$API_TEST_HTML \
         || exit 1
 
@@ -48,7 +48,7 @@ if [[ -f "./results/$API_TEST_JSON" ]]; then
     curl \
         --user "admin:$ART_PASS" \
         --http1.1 \
-        -T "./results/$API_TEST_JSON" \
+        -T ./results/$API_TEST_JSON \
             https://art.daas.digidhamu.com/repository/raw-daas-digidhamu/test-results/$API_TEST_JSON \
         || exit 1
     
@@ -64,7 +64,7 @@ if [[ -f "./results/$FUNC_TEST_MP4" ]]; then
     curl \
         --user "admin:$ART_PASS" \
         --http1.1 \
-        -T "./results/$FUNC_TEST_MP4" \
+        -T ./results/$FUNC_TEST_MP4 \
             https://art.daas.digidhamu.com/repository/raw-daas-digidhamu/test-results/$FUNC_TEST_MP4 \
         || exit 1
 
@@ -78,7 +78,7 @@ if [[ -f "./results/$UX_TEST_HTML" ]]; then
     curl \
         --user "admin:$ART_PASS" \
         --http1.1 \
-        -T "./results/$UX_TEST_HTML" \
+        -T ./results/$UX_TEST_HTML \
             https://art.daas.digidhamu.com/repository/raw-daas-digidhamu/test-results/$UX_TEST_HTML \
         || exit 1
 
@@ -106,7 +106,7 @@ if [[ -f "./results/$PERF_TEST_TXT" ]]; then
     curl \
         --user "admin:$ART_PASS" \
         --http1.1 \
-        -T "./results/$PERF_TEST_TXT" \
+        -T ./results/$PERF_TEST_TXT \
             https://art.daas.digidhamu.com/repository/raw-daas-digidhamu/test-results/$PERF_TEST_TXT \
         || exit 1
 
