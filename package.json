@@ -16,7 +16,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "test-cover":  "npm test -- --coverage --watchAll=false --modulePathIgnorePatterns=serviceWorker.js",
+    "test-cover": "npm test -- --coverage --watchAll=false --modulePathIgnorePatterns=serviceWorker.js",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

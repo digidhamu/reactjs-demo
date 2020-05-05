@@ -6,23 +6,24 @@ SONAR_HOST=https://cdq.daas.digidhamu.com
 SONAR_PROJECT_KEY=reactjs-daas-demo
 SONAR_PROJECT_NAME=$SONAR_PROJECT_KEY
 
+SONAR_API_TOKEN=$1
+GITHUB_REPO=reactjs-demo
+GITHUB_TOKEN=$2
+GITHUB_ISSUE=1
+
 sonar-scanner -Dsonar.host.url=$SONAR_HOST \
               -Dsonar.projectKey=$SONAR_PROJECT_KEY \
               -Dsonar.projectName=$SONAR_PROJECT_NAME \
               -Dsonar.projectVersion=1.0 \
               -Dsonar.sources=. \
-              -Dsonar.login=$1
-              -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
+              -Dsonar.login=$1 \
+              -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info \
               -Dsonar.exclusions=**/node_modules/**,**/coverage/lcov-report/**,**/serviceWorker.js,**/*.test.js
 
 echo "Checking if analysis is finished.."
 
 SONAR_STATUS_URL=$(cat .scannerwork/report-task.txt | grep ceTaskUrl | sed -e 's/ceTaskUrl=//')
 SONAR_STATUS=$(curl -skg "${SONAR_STATUS_URL}" | sed -e 's/.*status":"//' | sed -e 's/",.*//')
-SONAR_API_TOKEN=$1
-GITHUB_REPO=reactjs-demo
-GITHUB_TOKEN=$2
-GITHUB_ISSUE=1
 
 while ! [ "${SONAR_STATUS}" = "SUCCESS" ] || [ "${SONAR_STATUS}" = "CANCELED" ] || [ "${SONAR_STATUS}" = "FAILED" ];
 do                                    
@@ -58,12 +59,14 @@ if [[ ${SONAR_QG_STATUS} == *'{"projectStatus":{"status":"ERROR",'* ]]; then
     exit 1
 fi
 
+echo Qualiaty gate status: PASSED
+
 ## Pull Request Comments
-curl -X "POST" "https://api.github.com/repos/digidhamu/SONAR_PROJECT_KEY/issues/${GITHUB_ISSUE}/comments" \
+curl -X "POST" "https://api.github.com/repos/digidhamu/${GITHUB_REPO}/issues/${GITHUB_ISSUE}/comments" \
     -H 'Content-Type: application/json' \
     -H "Authorization: Bearer ${GITHUB_TOKEN}" \
     -d $"{
-        \"body\": \"Sonar Quality Gate is passed. [${GITHUB_REPO}](https://cdq.daas.digidhamu.com/dashboard?id=${SONAR_PROJECT_KEY})\"
+        \"body\": \"Sonar Quality Gate is passed. [${SONAR_PROJECT_KEY}](https://cdq.daas.digidhamu.com/dashboard?id=${SONAR_PROJECT_KEY})\"
     }"
 
 exit 0

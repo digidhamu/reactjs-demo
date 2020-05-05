@@ -1,0 +1,49 @@
+{
+	"info": {
+		"_postman_id": "1c43c33c-811c-4b02-9eb3-3b2c8d50d14d",
+		"name": "daas-api-test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "reactjs-demo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ffe713d3-b88e-49e7-8fa4-518e96db1da0",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Response time is less than 2000ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "192.168.64.32:32008/",
+					"host": [
+						"192",
+						"168",
+						"64",
+						"32"
+					],
+					"port": "32008",
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
