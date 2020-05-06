@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ./parse-flowref.sh "'$1'"
+source ./parse-flowref.sh $1
 
 exit 0
 
