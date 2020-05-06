@@ -1,5 +1,11 @@
 #!/bin/bash
 
+if [[ -z $1 || -z $2 || -z $3 ]]; then
+    echo Required access details are not supplied
+    echo "eg. ./update-pr.sh SONAR_API_TOKEN GITHUB_TOKEN GITHUB_ISSUE"
+    exit 1
+fi
+
 export PATH="$PATH:/Users/dhamukrish/Documents/digidhamu/k8s.do.digidhamu.com/tools/sonar-scanner-4.2.0.1873-macosx/bin"
 
 SONAR_HOST=https://cdq.daas.digidhamu.com
@@ -7,9 +13,10 @@ SONAR_PROJECT_KEY=reactjs-daas-demo
 SONAR_PROJECT_NAME=$SONAR_PROJECT_KEY
 
 SONAR_API_TOKEN=$1
+
 GITHUB_REPO=reactjs-demo
 GITHUB_TOKEN=$2
-GITHUB_ISSUE=1
+GITHUB_ISSUE=$3
 
 sonar-scanner -Dsonar.host.url=$SONAR_HOST \
               -Dsonar.projectKey=$SONAR_PROJECT_KEY \
