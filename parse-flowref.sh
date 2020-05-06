@@ -13,3 +13,8 @@ export FLOW_ID=`echo $FORMATED_JSON | jq --raw-output .flow_id`
 export PIPELINE_ID=`echo $FORMATED_JSON | jq --raw-output .pipeline_id`
 export FLOW_SEQUENCE=`echo $FORMATED_JSON | jq --raw-output .flow_sequence`
 export STAGE_ID=`echo $FORMATED_JSON | jq --raw-output .stage_id`
+
+echo $FLOW_ID
+echo $PIPELINE_ID
+echo $FLOW_SEQUENCE
+echo $STAGE_ID
