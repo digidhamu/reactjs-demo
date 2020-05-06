@@ -32,7 +32,7 @@ sonar-scanner -Dsonar.host.url=$SONAR_HOST \
               -Dsonar.projectName=$SONAR_PROJECT_NAME \
               -Dsonar.projectVersion=1.0 \
               -Dsonar.sources=. \
-              -Dsonar.login=$1 \
+              -Dsonar.login=$SONAR_API_TOKEN \
               -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info \
               -Dsonar.exclusions=**/node_modules/**,**/coverage/lcov-report/**,**/serviceWorker.js,**/*.test.js
 
