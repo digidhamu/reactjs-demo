@@ -1,17 +1,11 @@
 #!/bin/bash
 export PATH="$PATH:/Users/dhamukrish/Documents/digidhamu/k8s.do.digidhamu.com/tools/sonar-scanner-4.2.0.1873-macosx/bin"
 
-if [[ -z $1 ]]; then
-    echo GitHub issue/pull request number is not supplied
-    echo "eg. ./update-pr.sh 1"
-    exit 1
-fi
-
 SONAR_HOST=https://cdq.daas.digidhamu.com
 SONAR_PROJECT_KEY=reactjs-daas-demo
 SONAR_PROJECT_NAME=$SONAR_PROJECT_KEY
 GITHUB_REPO=reactjs-demo
-GITHUB_ISSUE=$1
+GITHUB_ISSUE=2
 
 GITHUB_TOKEN=$(curl -n -skg "https://secretmanager.googleapis.com/v1/projects/202626771609/secrets/github-token/versions/1:access" \
     --request "GET" \
