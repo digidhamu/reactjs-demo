@@ -1,7 +1,7 @@
 #!/bin/bash
 export PATH="$PATH:/Users/dhamukrish/Documents/digidhamu/k8s.do.digidhamu.com/tools/sonar-scanner-4.2.0.1873-macosx/bin"
 
-if [[ -z $1]]; then
+if [[ -z $1 ]]; then
     echo GitHub issue/pull request number is not supplied
     echo "eg. ./update-pr.sh 1"
     exit 1
