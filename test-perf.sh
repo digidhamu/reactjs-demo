@@ -2,17 +2,15 @@
 
 set -o errexit # exit immediately on error
 
-if [[ -z $1 || -z $2 ]]; then
-    echo Artifacts repo required access details are not supplied
-    echo "eg. ./test-perf.sh user password"
-    exit 1
-fi
-
-ART_USER=$1
-ART_PASS=$2
-
 ART_SERVER="https://art.daas.digidhamu.com/repository/raw-daas-digidhamu/test-results"
 timestamp=`date +%Y-%m-%d"_"%H_%M_%S`
+
+ART_ACCESS=$(curl -n -skg "https://secretmanager.googleapis.com/v1/projects/202626771609/secrets/art-access/versions/1:access" \
+    --request "GET" \
+    --header "authorization: Bearer $(gcloud auth print-access-token)" \
+    --header "content-type: application/json" \
+    --header "x-goog-user-project: digidhamu-k8s" \
+    | jq -r ".payload.data" | base64 --decode)
 
 PERF_TEST_TXT="perf-test-results.txt"
 PERF_TEST_TXT_TIMESTAMP="perf-test-results_$timestamp.txt"
@@ -27,7 +25,7 @@ docker run --rm \
 cp "results/$PERF_TEST_TXT" "results/$PERF_TEST_TXT_TIMESTAMP"
 
 curl \
-    --user "$ART_USER:$ART_PASS" \
+    --user "$ART_ACCESS" \
     --http1.1 \
     -T ./results/$PERF_TEST_TXT \
         $ART_SERVER/$PERF_TEST_TXT \
@@ -36,7 +34,7 @@ curl \
 echo File $PERF_TEST_TXT is uploaded
 
 curl \
-    --user "$ART_USER:$ART_PASS" \
+    --user "$ART_ACCESS" \
     --http1.1 \
     -T ./results/$PERF_TEST_TXT_TIMESTAMP \
         $ART_SERVER/$PERF_TEST_TXT_TIMESTAMP \
