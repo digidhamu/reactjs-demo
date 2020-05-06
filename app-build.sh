@@ -3,7 +3,6 @@
 source ./parse-flowref.sh $1
 
 ./post-progress.sh $STAGE_ID $PIPELINE_ID "setting-up-context" 10
-
 kubectl config set-context docker-desktop
 
 ./post-progress.sh $STAGE_ID $PIPELINE_ID "build-the-docker-image" 50
