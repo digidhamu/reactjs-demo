@@ -3,7 +3,7 @@
 set +xe
 
 curl -X "POST" "https://ctl.daas.digidhamu.com/jcl-script-hook" \
-     -H 'Content-Type: application/text; charset=utf-8' \
+     -H 'Content-Type: application/json; charset=utf-8' \
      -d $'{
   "msgStageProgress": {
     "stage_id": '$1',
