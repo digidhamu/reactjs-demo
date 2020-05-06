@@ -8,7 +8,7 @@ curl -X "POST" "https://ctl.daas.digidhamu.com/jcl-script-hook" \
   "msgStageProgress": {
     "stage_id": '$1',
     "pipeline_id": '$2',
-    "step_status": '\"$3\"',
+    "step_status": "'"$3"'",
     "progress_status": '$4'
   }
 }'
