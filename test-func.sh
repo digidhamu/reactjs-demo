@@ -12,7 +12,6 @@ ART_ACCESS=$(curl -n -skg "https://secretmanager.googleapis.com/v1/projects/2026
     --header "x-goog-user-project: digidhamu-k8s" \
     | jq -r ".payload.data" | base64 --decode)
 
-
 FUNC_TEST_MP4="func-test-results.mp4"
 FUNC_TEST_MP4_TIMESTAMP="func-test-results_$timestamp.mp4"
 
