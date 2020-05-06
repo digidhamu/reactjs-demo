@@ -16,6 +16,8 @@ tar -czvf \
     ./results/* \
     || exit 1
 
+sleep 5
+
 if [[ -f "./results_${timestamp}.tar.gz" ]]; then
     curl \
         --user "admin:$ART_PASS" \
@@ -25,10 +27,11 @@ if [[ -f "./results_${timestamp}.tar.gz" ]]; then
         || exit 1
 
     echo "File results_${timestamp}.tar.gz is uploaded"
-    sleep 2
 else
     echo "File results_${timestamp}.tar.gz is not present"
 fi
+
+sleep 5
 
 if [[ -f "./results/$API_TEST_HTML" ]]; then
     curl \
@@ -39,10 +42,11 @@ if [[ -f "./results/$API_TEST_HTML" ]]; then
         || exit 1
 
     echo "File $API_TEST_HTML is uploaded"    
-    sleep 2
 else
     echo "File $API_TEST_HTML is not present"
 fi
+
+sleep 5
 
 if [[ -f "./results/$API_TEST_JSON" ]]; then
     curl \
@@ -53,12 +57,15 @@ if [[ -f "./results/$API_TEST_JSON" ]]; then
         || exit 1
     
     echo "File $API_TEST_JSON is uploaded"
-    sleep 2
 else
     echo "File $API_TEST_JSON is not present"
 fi
 
+sleep 5
+
 cp ./e2e/cypress/videos/spec.js.mp4 ./results/$FUNC_TEST_MP4
+
+sleep 10
 
 if [[ -f "./results/$FUNC_TEST_MP4" ]]; then
     curl \
@@ -69,10 +76,11 @@ if [[ -f "./results/$FUNC_TEST_MP4" ]]; then
         || exit 1
 
     echo "File $FUNC_TEST_MP4 is uploaded"
-    sleep 2
 else
     echo "File $FUNC_TEST_MP4 is not present"
 fi
+
+sleep 5
 
 if [[ -f "./results/$UX_TEST_HTML" ]]; then
     curl \
@@ -83,10 +91,11 @@ if [[ -f "./results/$UX_TEST_HTML" ]]; then
         || exit 1
 
     echo "File $UX_TEST_HTML is uploaded"
-    sleep 2
 else
     echo "File $UX_TEST_HTML is not present"
 fi
+
+sleep 5
 
 if [[ -f "./results/$SEC_TEST_HTML" ]]; then
     curl \
@@ -97,10 +106,11 @@ if [[ -f "./results/$SEC_TEST_HTML" ]]; then
         || exit 1
 
     echo "File $SEC_TEST_HTML is uploaded"
-    sleep 2
 else
     echo "File $SEC_TEST_HTML is not present"
 fi
+
+sleep 5
 
 if [[ -f "./results/$PERF_TEST_TXT" ]]; then
     curl \
@@ -111,7 +121,6 @@ if [[ -f "./results/$PERF_TEST_TXT" ]]; then
         || exit 1
 
     echo "File $PERF_TEST_TXT is uploaded"
-    sleep 2
 else
     echo "File $PERF_TEST_TXT is not present"
 fi
