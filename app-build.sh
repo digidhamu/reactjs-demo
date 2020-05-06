@@ -2,6 +2,8 @@
 
 source ./parse-flowref.sh "'$1'"
 
+exit 0
+
 ./post-progress.sh $STAGE_ID $PIPELINE_ID "Setting up context", 10
 
 kubectl config set-context docker-desktop
