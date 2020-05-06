@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ./prase-flowref.sh $1
+source ./parse-flowref.sh $1
 
 ./post-progress.sh $STAGE_ID $PIPELINE_ID "Setting up context", 10
 
