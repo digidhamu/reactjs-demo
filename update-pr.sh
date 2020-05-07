@@ -5,7 +5,7 @@ SONAR_HOST=https://cdq.daas.digidhamu.com
 SONAR_PROJECT_KEY=reactjs-daas-demo
 SONAR_PROJECT_NAME=$SONAR_PROJECT_KEY
 GITHUB_REPO=reactjs-demo
-GITHUB_ISSUE=2
+GITHUB_ISSUE=3
 
 GITHUB_TOKEN=$(curl -n -skg "https://secretmanager.googleapis.com/v1/projects/202626771609/secrets/github-token/versions/1:access" \
     --request "GET" \

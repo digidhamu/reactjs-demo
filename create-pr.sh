@@ -16,6 +16,6 @@ curl -X "POST" "https://api.github.com/repos/digidhamu/${GITHUB_REPO}/pulls" \
      -d $'{
   "body": "Please pull these awesome changes in!",
   "title": "Amazing new feature",
-  "base": "master",
+  "base": "develop",
   "head": "digidhamu:test-pr1"
 }'
