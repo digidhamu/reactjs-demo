@@ -1,22 +1,32 @@
 #!/bin/bash
-
 export PATH="$PATH:/Users/dhamukrish/Documents/digidhamu/k8s.do.digidhamu.com/tools/sonar-scanner-4.2.0.1873-macosx/bin"
 
 SONAR_HOST=https://cdq.daas.digidhamu.com
 SONAR_PROJECT_KEY=reactjs-daas-demo
 SONAR_PROJECT_NAME=$SONAR_PROJECT_KEY
-
-SONAR_API_TOKEN=$1
 GITHUB_REPO=reactjs-demo
-GITHUB_TOKEN=$2
-GITHUB_ISSUE=1
+GITHUB_ISSUE=3
+
+GITHUB_TOKEN=$(curl -n -skg "https://secretmanager.googleapis.com/v1/projects/202626771609/secrets/github-token/versions/1:access" \
+    --request "GET" \
+    --header "authorization: Bearer $(gcloud auth print-access-token)" \
+    --header "content-type: application/json" \
+    --header "x-goog-user-project: digidhamu-k8s" \
+    | jq -r ".payload.data" | base64 --decode)
+
+SONAR_API_TOKEN=$(curl -n -skg "https://secretmanager.googleapis.com/v1/projects/202626771609/secrets/sonar-token/versions/1:access" \
+    --request "GET" \
+    --header "authorization: Bearer $(gcloud auth print-access-token)" \
+    --header "content-type: application/json" \
+    --header "x-goog-user-project: digidhamu-k8s" \
+    | jq -r ".payload.data" | base64 --decode)
 
 sonar-scanner -Dsonar.host.url=$SONAR_HOST \
               -Dsonar.projectKey=$SONAR_PROJECT_KEY \
               -Dsonar.projectName=$SONAR_PROJECT_NAME \
               -Dsonar.projectVersion=1.0 \
               -Dsonar.sources=. \
-              -Dsonar.login=$1 \
+              -Dsonar.login=$SONAR_API_TOKEN \
               -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info \
               -Dsonar.exclusions=**/node_modules/**,**/coverage/lcov-report/**,**/serviceWorker.js,**/*.test.js
 
