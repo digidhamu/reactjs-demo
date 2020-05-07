@@ -21,7 +21,7 @@ cd e2e
     docker-compose up --exit-code-from cypress
 cd ..
 
-sleep 1
+sleep 5
 
 cp "e2e/cypress/videos/spec.js.mp4" "results/$FUNC_TEST_MP4"
 cp "results/$FUNC_TEST_MP4" "results/$FUNC_TEST_MP4_TIMESTAMP"
