@@ -17,8 +17,8 @@ docker push dcr.daas.digidhamu.com/$APP_NAME:$RELEASE_TAG
 ##
 # API Test Result Upload
 ##
-API_TEST_JSON_RELEASE_TAG="api-test-results_$RELEASE_TAG.json"
-API_TEST_HTML_RELEASE_TAG="api-test-results_$RELEASE_TAG.html"
+API_TEST_JSON_RELEASE_TAG="api-test-results_$APP_NAME-$RELEASE_TAG.json"
+API_TEST_HTML_RELEASE_TAG="api-test-results_$APP_NAME-$RELEASE_TAG.html"
 
 cp results/$API_TEST_JSON results/$API_TEST_JSON_RELEASE_TAG
 cp results/$API_TEST_HTML results/$API_TEST_HTML_RELEASE_TAG
@@ -44,7 +44,7 @@ echo File $API_TEST_HTML_RELEASE_TAG is uploaded
 ##
 # Functional Test Result Upload
 ##
-FUNC_TEST_MP4_RELEASE_TAG="func-test-results_$RELEASE_TAG.mp4"
+FUNC_TEST_MP4_RELEASE_TAG="func-test-results_$APP_NAME-$RELEASE_TAG.mp4"
 cp "results/$FUNC_TEST_MP4" "results/$FUNC_TEST_MP4_RELEASE_TAG"
 
 curl \
@@ -59,7 +59,7 @@ echo File $FUNC_TEST_MP4_RELEASE_TAG is uploaded
 ##
 # UX Test Result Upload
 ##
-UX_TEST_HTML_RELEASE_TAG="ux-test-results_$RELEASE_TAG.html"
+UX_TEST_HTML_RELEASE_TAG="ux-test-results_$APP_NAME-$RELEASE_TAG.html"
 cp "results/$UX_TEST_HTML" "results/$UX_TEST_HTML_RELEASE_TAG"
 
 curl \
@@ -74,7 +74,7 @@ echo File $UX_TEST_HTML_RELEASE_TAG is uploaded
 ##
 # Security Test Result Upload
 ##
-SEC_TEST_HTML_RELEASE_TAG="sec-test-results_$RELEASE_TAG.html"
+SEC_TEST_HTML_RELEASE_TAG="sec-test-results_$APP_NAME-$RELEASE_TAG.html"
 cp "results/$SEC_TEST_HTML" "results/$SEC_TEST_HTML_RELEASE_TAG"
 
 curl \
@@ -90,7 +90,7 @@ echo File $SEC_TEST_HTML_RELEASE_TAG is uploaded
 ##
 # Performance Test Result Upload
 ##
-PERF_TEST_TXT_RELEASE_TAG="perf-test-results_$RELEASE_TAG.txt"
+PERF_TEST_TXT_RELEASE_TAG="perf-test-results_$APP_NAME-$RELEASE_TAG.txt"
 cp "results/$PERF_TEST_TXT" "results/$PERF_TEST_TXT_RELEASE_TAG"
 
 curl \
