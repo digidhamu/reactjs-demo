@@ -2,7 +2,7 @@
 
 set -o errexit # exit immediately on error
 
-source ./set-script-vars $1
+source ./set-script-vars.sh $1
 
 kubectl config set-context minikube
 

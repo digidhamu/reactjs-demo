@@ -2,7 +2,7 @@
 
 set -xo errexit # exit immediately on error
 
-source ./set-script-vars $1
+source ./set-script-vars.sh $1
 
 ./post-progress.sh $STAGE_UUID "Setting up context" 10
 kubectl config set-context docker-desktop
