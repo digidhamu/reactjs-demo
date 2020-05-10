@@ -35,4 +35,4 @@ export ART_ACCESS=$(curl -n -skg "https://secretmanager.googleapis.com/v1/projec
     | jq -r ".payload.data" | base64 --decode)
 
 export APP_NAME=$(curl -n -skg "https://ctl.daas.digidhamu.com/app-name?stage_uuid=$STAGE_UUID" \
-    --header 'Content-Type: application/json; charset=utf-8')
+    --header 'Content-Type: application/json; charset=utf-8' | jq --raw-output .name)
