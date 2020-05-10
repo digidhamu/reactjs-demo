@@ -70,3 +70,18 @@ curl \
     || exit 1
 
 echo File $UX_TEST_HTML_RELEASE_TAG is uploaded
+
+##
+# Security Test Result Upload
+##
+SEC_TEST_HTML_RELEASE_TAG="sec-test-results_$RELEASE_TAG.html"
+cp "results/$SEC_TEST_HTML" "results/$SEC_TEST_HTML_RELEASE_TAG"
+
+curl \
+    --user "$ART_ACCESS" \
+    --http1.1 \
+    -T ./results/$SEC_TEST_HTML_RELEASE_TAG \
+        $ART_SERVER/$SEC_TEST_HTML_RELEASE_TAG \
+    || exit 1
+
+echo File $SEC_TEST_HTML_RELEASE_TAG is uploaded

@@ -4,6 +4,7 @@ export API_TEST_JSON="api-test-results.json"
 export API_TEST_HTML="api-test-results.html"
 export FUNC_TEST_MP4="func-test-results.mp4"
 export UX_TEST_HTML="ux-test-results.html"
+export SEC_TEST_HTML="sec-test-results.html"
 
 export ART_SERVER="https://art.daas.digidhamu.com/repository/raw-daas-digidhamu/test-results"
 
