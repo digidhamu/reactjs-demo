@@ -1,6 +1,10 @@
 #!/bin/bash
 
-GITHUB_REPO=reactjs-demo
+set -o errexit # exit immediately on error
+
+source ./set-script-vars.sh $1
+
+GITHUB_REPO=$APP_NAME
 
 GITHUB_TOKEN=$(curl -n -skg "https://secretmanager.googleapis.com/v1/projects/202626771609/secrets/github-token/versions/1:access" \
     --request "GET" \
