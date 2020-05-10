@@ -40,3 +40,18 @@ curl \
     || exit 1
 
 echo File $API_TEST_HTML_RELEASE_TAG is uploaded
+
+##
+# Functional Test Result Upload
+##
+FUNC_TEST_MP4_RELEASE_TAG="func-test-results_$RELEASE_TAG.mp4"
+cp "results/$FUNC_TEST_MP4" "results/$FUNC_TEST_MP4_RELEASE_TAG"
+
+curl \
+    --user "$ART_ACCESS" \
+    --http1.1 \
+    -T ./results/$FUNC_TEST_MP4_RELEASE_TAG \
+        $ART_SERVER/$FUNC_TEST_MP4_RELEASE_TAG \
+    || exit 1
+
+echo File $FUNC_TEST_MP4_RELEASE_TAG is uploaded
