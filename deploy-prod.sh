@@ -1,9 +1,13 @@
 #!/bin/bash
 
+set -o errexit # exit immediately on error
+
+source ./set-script-vars $1
+
 kubectl config set-context minikube
 
-kubectl delete -f reactjs-demo.yaml
+kubectl delete -f $APP_NAME.yaml
 sleep 10
 
-kubectl apply -f reactjs-demo.yaml
+kubectl apply -f $APP_NAME.yaml
 sleep 10
