@@ -85,3 +85,19 @@ curl \
     || exit 1
 
 echo File $SEC_TEST_HTML_RELEASE_TAG is uploaded
+
+
+##
+# Performance Test Result Upload
+##
+PERF_TEST_TXT_RELEASE_TAG="perf-test-results_$RELEASE_TAG.txt"
+cp "results/$PERF_TEST_TXT" "results/$PERF_TEST_TXT_RELEASE_TAG"
+
+curl \
+    --user "$ART_ACCESS" \
+    --http1.1 \
+    -T ./results/$PERF_TEST_TXT_RELEASE_TAG \
+        $ART_SERVER/$PERF_TEST_TXT_RELEASE_TAG \
+    || exit 1
+
+echo File $PERF_TEST_TXT_RELEASE_TAG is uploaded
