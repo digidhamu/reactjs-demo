@@ -15,7 +15,7 @@ function App() {
           Home
         </Button>
         <p>
-          Version v1.1.0-alpha.16
+          Version v1.1.0-alpha.17
         </p>
       </header>
     </div>
