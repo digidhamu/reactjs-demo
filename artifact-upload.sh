@@ -55,3 +55,18 @@ curl \
     || exit 1
 
 echo File $FUNC_TEST_MP4_RELEASE_TAG is uploaded
+
+##
+# UX Test Result Upload
+##
+UX_TEST_HTML_RELEASE_TAG="ux-test-results_$RELEASE_TAG.html"
+cp "results/$UX_TEST_HTML" "results/$UX_TEST_HTML_RELEASE_TAG"
+
+curl \
+    --user "$ART_ACCESS" \
+    --http1.1 \
+    -T ./results/$UX_TEST_HTML_RELEASE_TAG \
+        $ART_SERVER/$UX_TEST_HTML_RELEASE_TAG \
+    || exit 1
+
+echo File $UX_TEST_HTML_RELEASE_TAG is uploaded
