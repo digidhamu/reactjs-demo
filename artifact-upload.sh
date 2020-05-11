@@ -1,120 +1,103 @@
 #!/bin/bash
 
-export timestamp=`date +%Y-%m-%d"_"%H_%M_%S`
+set -xo errexit # exit immediately on error
 
-ART_PASS=$1
+source ./set-script-vars.sh $1
+source ./get-release-tag.sh $STAGE_UUID
 
-API_TEST_HTML="api-test-results.html"
-API_TEST_JSON="api-test-results.json"
-FUNC_TEST_MP4="func-test-results.mp4"
-UX_TEST_HTML="ux-test-results.html"
-SEC_TEST_HTML="sec-test-results.html"
-PERF_TEST_TXT="perf-test-results.txt"
+##
+# Docker Image Upload
+##
+./post-progress.sh $STAGE_UUID "Taging releasing label" 50
+docker tag $APP_NAME dcr.daas.digidhamu.com/$APP_NAME:$RELEASE_TAG
 
-tar -czvf \
-    ./results_${timestamp}.tar.gz \
-    ./results/* \
+./post-progress.sh $STAGE_UUID "Push the labelled image" 90
+docker push dcr.daas.digidhamu.com/$APP_NAME:$RELEASE_TAG
+
+##
+# API Test Result Upload
+##
+API_TEST_JSON_RELEASE_TAG="api-test-results_${APP_NAME}_${RELEASE_TAG}.json"
+API_TEST_HTML_RELEASE_TAG="api-test-results_${APP_NAME}_${RELEASE_TAG}.html"
+
+cp results/$API_TEST_JSON results/$API_TEST_JSON_RELEASE_TAG
+cp results/$API_TEST_HTML results/$API_TEST_HTML_RELEASE_TAG
+
+curl \
+    --user "$ART_ACCESS" \
+    --http1.1 \
+    -T ./results/$API_TEST_JSON_RELEASE_TAG \
+        $ART_SERVER/$API_TEST_JSON_RELEASE_TAG \
     || exit 1
 
-if [[ -f "./results_${timestamp}.tar.gz" ]]; then
-    curl \
-        --user "admin:$ART_PASS" \
-        --http1.1 \
-        -T ./results_${timestamp}.tar.gz \
-            https://art.daas.digidhamu.com/repository/raw-daas-digidhamu/test-results/results_${timestamp}.tar.gz \
-        || exit 1
+echo File $API_TEST_JSON_RELEASE_TAG is uploaded
 
-    echo "File results_${timestamp}.tar.gz is uploaded"
-    sleep 2
-else
-    echo "File results_${timestamp}.tar.gz is not present"
-fi
+curl \
+    --user "$ART_ACCESS" \
+    --http1.1 \
+    -T ./results/$API_TEST_HTML_RELEASE_TAG \
+        $ART_SERVER/$API_TEST_HTML_RELEASE_TAG \
+    || exit 1
 
-if [[ -f "./results/$API_TEST_HTML" ]]; then
-    curl \
-        --user "admin:$ART_PASS" \
-        --http1.1 \
-        -T ./results/$API_TEST_HTML \
-            https://art.daas.digidhamu.com/repository/raw-daas-digidhamu/test-results/$API_TEST_HTML \
-        || exit 1
+echo File $API_TEST_HTML_RELEASE_TAG is uploaded
 
-    echo "File $API_TEST_HTML is uploaded"    
-    sleep 2
-else
-    echo "File $API_TEST_HTML is not present"
-fi
+##
+# Functional Test Result Upload
+##
+FUNC_TEST_MP4_RELEASE_TAG="func-test-results_${APP_NAME}_${RELEASE_TAG}.mp4"
+cp "results/$FUNC_TEST_MP4" "results/$FUNC_TEST_MP4_RELEASE_TAG"
 
-if [[ -f "./results/$API_TEST_JSON" ]]; then
-    curl \
-        --user "admin:$ART_PASS" \
-        --http1.1 \
-        -T ./results/$API_TEST_JSON \
-            https://art.daas.digidhamu.com/repository/raw-daas-digidhamu/test-results/$API_TEST_JSON \
-        || exit 1
-    
-    echo "File $API_TEST_JSON is uploaded"
-    sleep 2
-else
-    echo "File $API_TEST_JSON is not present"
-fi
+curl \
+    --user "$ART_ACCESS" \
+    --http1.1 \
+    -T ./results/$FUNC_TEST_MP4_RELEASE_TAG \
+        $ART_SERVER/$FUNC_TEST_MP4_RELEASE_TAG \
+    || exit 1
 
-cp ./e2e/cypress/videos/spec.js.mp4 ./results/$FUNC_TEST_MP4
+echo File $FUNC_TEST_MP4_RELEASE_TAG is uploaded
 
-if [[ -f "./results/$FUNC_TEST_MP4" ]]; then
-    curl \
-        --user "admin:$ART_PASS" \
-        --http1.1 \
-        -T ./results/$FUNC_TEST_MP4 \
-            https://art.daas.digidhamu.com/repository/raw-daas-digidhamu/test-results/$FUNC_TEST_MP4 \
-        || exit 1
+##
+# UX Test Result Upload
+##
+UX_TEST_HTML_RELEASE_TAG="ux-test-results_${APP_NAME}_${RELEASE_TAG}.html"
+cp "results/$UX_TEST_HTML" "results/$UX_TEST_HTML_RELEASE_TAG"
 
-    echo "File $FUNC_TEST_MP4 is uploaded"
-    sleep 2
-else
-    echo "File $FUNC_TEST_MP4 is not present"
-fi
+curl \
+    --user "$ART_ACCESS" \
+    --http1.1 \
+    -T ./results/$UX_TEST_HTML_RELEASE_TAG \
+        $ART_SERVER/$UX_TEST_HTML_RELEASE_TAG \
+    || exit 1
 
-if [[ -f "./results/$UX_TEST_HTML" ]]; then
-    curl \
-        --user "admin:$ART_PASS" \
-        --http1.1 \
-        -T ./results/$UX_TEST_HTML \
-            https://art.daas.digidhamu.com/repository/raw-daas-digidhamu/test-results/$UX_TEST_HTML \
-        || exit 1
+echo File $UX_TEST_HTML_RELEASE_TAG is uploaded
 
-    echo "File $UX_TEST_HTML is uploaded"
-    sleep 2
-else
-    echo "File $UX_TEST_HTML is not present"
-fi
+##
+# Security Test Result Upload
+##
+SEC_TEST_HTML_RELEASE_TAG="sec-test-results_${APP_NAME}_${RELEASE_TAG}.html"
+cp "results/$SEC_TEST_HTML" "results/$SEC_TEST_HTML_RELEASE_TAG"
 
-if [[ -f "./results/$SEC_TEST_HTML" ]]; then
-    curl \
-        --user "admin:$ART_PASS" \
-        --http1.1 \
-        -T "./results/$SEC_TEST_HTML" \
-            https://art.daas.digidhamu.com/repository/raw-daas-digidhamu/test-results/$SEC_TEST_HTML \
-        || exit 1
+curl \
+    --user "$ART_ACCESS" \
+    --http1.1 \
+    -T ./results/$SEC_TEST_HTML_RELEASE_TAG \
+        $ART_SERVER/$SEC_TEST_HTML_RELEASE_TAG \
+    || exit 1
 
-    echo "File $SEC_TEST_HTML is uploaded"
-    sleep 2
-else
-    echo "File $SEC_TEST_HTML is not present"
-fi
+echo File $SEC_TEST_HTML_RELEASE_TAG is uploaded
 
-if [[ -f "./results/$PERF_TEST_TXT" ]]; then
-    curl \
-        --user "admin:$ART_PASS" \
-        --http1.1 \
-        -T ./results/$PERF_TEST_TXT \
-            https://art.daas.digidhamu.com/repository/raw-daas-digidhamu/test-results/$PERF_TEST_TXT \
-        || exit 1
 
-    echo "File $PERF_TEST_TXT is uploaded"
-    sleep 2
-else
-    echo "File $PERF_TEST_TXT is not present"
-fi
+##
+# Performance Test Result Upload
+##
+PERF_TEST_TXT_RELEASE_TAG="perf-test-results_${APP_NAME}_${RELEASE_TAG}.txt"
+cp "results/$PERF_TEST_TXT" "results/$PERF_TEST_TXT_RELEASE_TAG"
 
-## Clean up
-rm -f ./results_*
+curl \
+    --user "$ART_ACCESS" \
+    --http1.1 \
+    -T ./results/$PERF_TEST_TXT_RELEASE_TAG \
+        $ART_SERVER/$PERF_TEST_TXT_RELEASE_TAG \
+    || exit 1
+
+echo File $PERF_TEST_TXT_RELEASE_TAG is uploaded

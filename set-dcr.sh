@@ -8,6 +8,6 @@ kubectl delete secrets $SECRETNAME
 
 kubectl create secret docker-registry $SECRETNAME \
           --docker-server=minikube:32000 \
-          --docker-username=admin \
-          --docker-password=$1 \
-          --docker-email=$2
+          --docker-username=$1 \
+          --docker-password=$2 \
+          --docker-email=$3
