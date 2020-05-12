@@ -61,12 +61,11 @@ fi
 echo "Checking status of analysis with sonar key: ${SONAR_PROJECT_KEY}"
 
 ./post-progress.sh $STAGE_UUID "Updating code quality result in PR" 80
-SONAR_QG_STATUS=$(curl -skg "https://cdq.daas.digidhamu.com/api/qualitygates/project_status?projectKey=${SONAR_PROJECT_KEY}" -u "${SONAR_API_TOKEN}:")
+SONAR_QG_STATUS=$(curl -skg "https://cdq.daas.digidhamu.com/api/qualitygates/project_status?projectKey=${SONAR_PROJECT_KEY}" -u "${SONAR_API_TOKEN}:" | jq --raw-output .projectStatus.status)
 
-echo "Sonar WEB API returned:"
-echo "${SONAR_QG_STATUS}"
+echo "Sonar WEB API returned: ${SONAR_QG_STATUS}"
 
-if [[ ${SONAR_QG_STATUS} == *'{"projectStatus":{"status":"ERROR",'* ]]; then
+if [[ ${SONAR_QG_STATUS} -ne 'OK' ]]; then
     echo Qualiaty gate status: FAILED
 
     ## Pull Request Comments
