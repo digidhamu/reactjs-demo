@@ -35,4 +35,4 @@ export ART_ACCESS=$(curl -n -skg "https://secretmanager.googleapis.com/v1/projec
 export APP_NAME=$(curl -n -skg "https://ctl.daas.digidhamu.com/app-name?stage_uuid=$STAGE_UUID" \
     --header 'Content-Type: application/json; charset=utf-8' | jq --raw-output .name)
 
-export ART_SERVER_APP_FOLDER_APP_FOLDER="https://art.daas.digidhamu.com/repository/raw-daas-digidhamu/test-results/$APP_NAME"
+export ART_SERVER_APP_FOLDER="https://art.daas.digidhamu.com/repository/raw-daas-digidhamu/test-results/$APP_NAME"
