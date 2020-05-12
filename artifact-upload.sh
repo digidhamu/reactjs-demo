@@ -8,10 +8,10 @@ source ./get-release-tag.sh $STAGE_UUID
 ##
 # Docker Image Upload
 ##
-./post-progress.sh $STAGE_UUID "Taging releasing label" 50
+./post-progress.sh $STAGE_UUID "Taging releasing label" 10
 docker tag $APP_NAME dcr.daas.digidhamu.com/$APP_NAME:$RELEASE_TAG
 
-./post-progress.sh $STAGE_UUID "Push the labelled image" 90
+./post-progress.sh $STAGE_UUID "Push the labelled image" 20
 docker push dcr.daas.digidhamu.com/$APP_NAME:$RELEASE_TAG
 
 ##
@@ -23,6 +23,7 @@ API_TEST_HTML_RELEASE_TAG="api-test-results_${APP_NAME}_${RELEASE_TAG}.html"
 cp results/$API_TEST_JSON results/$API_TEST_JSON_RELEASE_TAG
 cp results/$API_TEST_HTML results/$API_TEST_HTML_RELEASE_TAG
 
+./post-progress.sh $STAGE_UUID "Uploading API test results" 40
 curl \
     --user "$ART_ACCESS" \
     --http1.1 \
@@ -47,6 +48,7 @@ echo File $API_TEST_HTML_RELEASE_TAG is uploaded
 FUNC_TEST_MP4_RELEASE_TAG="func-test-results_${APP_NAME}_${RELEASE_TAG}.mp4"
 cp "results/$FUNC_TEST_MP4" "results/$FUNC_TEST_MP4_RELEASE_TAG"
 
+./post-progress.sh $STAGE_UUID "Uploading functional test results" 60
 curl \
     --user "$ART_ACCESS" \
     --http1.1 \
@@ -62,6 +64,7 @@ echo File $FUNC_TEST_MP4_RELEASE_TAG is uploaded
 UX_TEST_HTML_RELEASE_TAG="ux-test-results_${APP_NAME}_${RELEASE_TAG}.html"
 cp "results/$UX_TEST_HTML" "results/$UX_TEST_HTML_RELEASE_TAG"
 
+./post-progress.sh $STAGE_UUID "Uploading UX test results" 70
 curl \
     --user "$ART_ACCESS" \
     --http1.1 \
@@ -77,6 +80,7 @@ echo File $UX_TEST_HTML_RELEASE_TAG is uploaded
 SEC_TEST_HTML_RELEASE_TAG="sec-test-results_${APP_NAME}_${RELEASE_TAG}.html"
 cp "results/$SEC_TEST_HTML" "results/$SEC_TEST_HTML_RELEASE_TAG"
 
+./post-progress.sh $STAGE_UUID "Uploading security test results" 80
 curl \
     --user "$ART_ACCESS" \
     --http1.1 \
@@ -93,6 +97,7 @@ echo File $SEC_TEST_HTML_RELEASE_TAG is uploaded
 PERF_TEST_TXT_RELEASE_TAG="perf-test-results_${APP_NAME}_${RELEASE_TAG}.txt"
 cp "results/$PERF_TEST_TXT" "results/$PERF_TEST_TXT_RELEASE_TAG"
 
+./post-progress.sh $STAGE_UUID "Uploading performance test results" 90
 curl \
     --user "$ART_ACCESS" \
     --http1.1 \

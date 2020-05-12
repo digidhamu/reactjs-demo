@@ -4,12 +4,14 @@ set -xo errexit # exit immediately on error
 
 source ./set-script-vars.sh $1
 
+./post-progress.sh $STAGE_UUID "Running API testing" 10
 newman run api-test.json \
     --insecure \
     --reporters cli,json,html \
     --reporter-json-export results/$API_TEST_JSON \
     --reporter-html-export results/$API_TEST_HTML
 
+./post-progress.sh $STAGE_UUID "Uploading the latest test results" 50
 curl \
     --user "$ART_ACCESS" \
     --http1.1 \
