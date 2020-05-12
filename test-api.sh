@@ -16,7 +16,7 @@ curl \
     --user "$ART_ACCESS" \
     --http1.1 \
     -T ./results/$API_TEST_JSON \
-        $ART_SERVER/$API_TEST_JSON \
+        $ART_SERVER_APP_FOLDER/$API_TEST_JSON \
     || exit 1
 
 echo File $API_TEST_JSON is uploaded
@@ -25,7 +25,7 @@ curl \
     --user "$ART_ACCESS" \
     --http1.1 \
     -T ./results/$API_TEST_HTML \
-        $ART_SERVER/$API_TEST_HTML \
+        $ART_SERVER_APP_FOLDER/$API_TEST_HTML \
     || exit 1
 
 echo File $API_TEST_HTML is uploaded

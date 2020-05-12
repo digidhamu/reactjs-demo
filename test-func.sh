@@ -21,7 +21,7 @@ curl \
     --user "$ART_ACCESS" \
     --http1.1 \
     -T ./results/$FUNC_TEST_MP4 \
-        $ART_SERVER/$FUNC_TEST_MP4 \
+        $ART_SERVER_APP_FOLDER/$FUNC_TEST_MP4 \
     || exit 1
 
 echo File $FUNC_TEST_MP4 is uploaded

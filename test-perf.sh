@@ -24,7 +24,7 @@ curl \
     --user "$ART_ACCESS" \
     --http1.1 \
     -T ./results/$PERF_TEST_TXT \
-        $ART_SERVER/$PERF_TEST_TXT \
+        $ART_SERVER_APP_FOLDER/$PERF_TEST_TXT \
     || exit 1
 
 echo File $PERF_TEST_TXT is uploaded

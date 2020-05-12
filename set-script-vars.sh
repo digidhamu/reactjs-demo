@@ -7,8 +7,6 @@ export UX_TEST_HTML="ux-test-results.html"
 export SEC_TEST_HTML="sec-test-results.html"
 export PERF_TEST_TXT="perf-test-results.txt"
 
-export ART_SERVER="https://art.daas.digidhamu.com/repository/raw-daas-digidhamu/test-results"
-
 FLOW_REF=$1
 
 echo $FLOW_REF
@@ -36,3 +34,5 @@ export ART_ACCESS=$(curl -n -skg "https://secretmanager.googleapis.com/v1/projec
 
 export APP_NAME=$(curl -n -skg "https://ctl.daas.digidhamu.com/app-name?stage_uuid=$STAGE_UUID" \
     --header 'Content-Type: application/json; charset=utf-8' | jq --raw-output .name)
+
+export ART_SERVER_APP_FOLDER_APP_FOLDER="https://art.daas.digidhamu.com/repository/raw-daas-digidhamu/test-results/$APP_NAME"

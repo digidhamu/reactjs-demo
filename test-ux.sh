@@ -15,7 +15,7 @@ curl \
     --user "$ART_ACCESS" \
     --http1.1 \
     -T ./results/$UX_TEST_HTML \
-        $ART_SERVER/$UX_TEST_HTML \
+        $ART_SERVER_APP_FOLDER/$UX_TEST_HTML \
     || exit 1
 
 echo File $UX_TEST_HTML is uploaded
