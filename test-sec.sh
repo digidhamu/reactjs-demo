@@ -12,7 +12,7 @@ kubectl config set-context docker-desktop
 docker run --rm \
     -v "$(pwd):/zap/wrk/:rw" \
     -t owasp/zap2docker-stable zap-full-scan.py \
-    -t http://192.168.64.6:32008 \
+    -t http://192.168.64.9:32008 \
     -g ./results/gen.conf \
     -r ./results/$SEC_TEST_HTML
 
