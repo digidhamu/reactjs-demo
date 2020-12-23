@@ -8,7 +8,7 @@ source ./set-script-vars.sh $1
 source ./get-release-tag.sh $STAGE_UUID
 
 ./post-progress.sh $STAGE_UUID "Setting up context" 20
-minikube docker-env && eval $(minikube -p minikube docker-env)
+kubectl config set-context docker-desktop
 
 ./post-progress.sh $STAGE_UUID "Updating app to release version" 30
 sed -e "s/||appVersion||/${RELEASE_TAG}/" "src/App.js.template" > "src/App.js"
