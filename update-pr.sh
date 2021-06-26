@@ -4,7 +4,8 @@ set -xo errexit # exit immediately on error
 
 source ./set-script-vars.sh $1
 
-export PATH="$PATH:/Users/dhamukrish/Documents/digidhamu/k8s.do.digidhamu.com/tools/sonar-scanner-4.2.0.1873-macosx/bin"
+# export PATH="$PATH:/Users/dhamukrish/Documents/digidhamu/k8s.do.digidhamu.com/tools/sonar-scanner-4.2.0.1873-macosx/bin"
+export PATH="$PATH:/home/dhamukrish/sonar-scanner-4.6.2.2472-linux/bin"
 
 SONAR_HOST=https://cdq.daas.digidhamu.com
 SONAR_PROJECT_KEY=$APP_NAME
