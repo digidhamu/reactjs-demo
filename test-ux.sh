@@ -6,7 +6,6 @@ source ./set-script-vars.sh $1
 
 ./post-progress.sh $STAGE_UUID "Running UX testing" 20
 lighthouse http://daas.digidhamu.com \
-    --quiet \
     --chrome-flags="--headless --no-sandbox" \
     --output-path=./results/$UX_TEST_HTML
 
