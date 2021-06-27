@@ -17,7 +17,7 @@ sed -e "s/||appVersion||/${RELEASE_TAG}/" "src/App.js.template" > "src/App.js"
 docker build -t $APP_NAME .
 
 ./post-progress.sh $STAGE_UUID "Tagging build image" 80
-docker tag $APP_NAME dcr.daas.digidhamu.com/$APP_NAME:latest
+docker tag $APP_NAME gcr.io/digidhamu-k8s/$APP_NAME:latest
 
 ./post-progress.sh $STAGE_UUID "Pushing the docker images" 90
-docker push dcr.daas.digidhamu.com/$APP_NAME:latest
+docker push gcr.io/digidhamu-k8s/$APP_NAME:latest
