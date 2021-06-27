@@ -18,6 +18,3 @@ curl \
     || exit 1
 
 echo File $UX_TEST_HTML is uploaded
-
-
-lighthouse https://github.com --quiet --chrome-flags="--headless"
