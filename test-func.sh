@@ -5,7 +5,7 @@ set -o errexit # exit immediately on error
 source ./set-script-vars.sh $1
 
 ./post-progress.sh $STAGE_UUID "Setting context" 10
-kubectl config set-context docker-desktop
+# kubectl config set-context docker-desktop
 
 ./post-progress.sh $STAGE_UUID "Running functional testing" 20
 cd e2e
