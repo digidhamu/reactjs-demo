@@ -4,7 +4,8 @@ set -xo errexit # exit immediately on error
 
 source ./set-script-vars.sh $1
 
-export PATH="$PATH:/Users/dhamukrish/Documents/digidhamu/k8s.do.digidhamu.com/tools/sonar-scanner-4.2.0.1873-macosx/bin"
+# export PATH="$PATH:/Users/dhamukrish/Documents/digidhamu/k8s.do.digidhamu.com/tools/sonar-scanner-4.2.0.1873-macosx/bin"
+export PATH="$PATH:/home/dhamukrish/sonar-scanner-4.6.2.2472-linux/bin"
 
 SONAR_HOST=https://cdq.daas.digidhamu.com
 SONAR_PROJECT_KEY=$APP_NAME
@@ -42,14 +43,14 @@ sonar-scanner -Dsonar.host.url=$SONAR_HOST \
 echo "Checking if analysis is finished.."
 
 SONAR_STATUS_URL=$(cat .scannerwork/report-task.txt | grep ceTaskUrl | sed -e 's/ceTaskUrl=//')
-SONAR_STATUS=$(curl -skg "${SONAR_STATUS_URL}" | sed -e 's/.*status":"//' | sed -e 's/",.*//')
+SONAR_STATUS=$(curl -skg "${SONAR_STATUS_URL}" -u "${SONAR_API_TOKEN}:" | sed -e 's/.*status":"//' | sed -e 's/",.*//')
 
 ./post-progress.sh $STAGE_UUID "Waiting for server response" 70
 while ! [ "${SONAR_STATUS}" = "SUCCESS" ] || [ "${SONAR_STATUS}" = "CANCELED" ] || [ "${SONAR_STATUS}" = "FAILED" ];
 do                                    
     echo "Sonar analysis is: ${SONAR_STATUS}. Taking a nap while we wait..."
     sleep 5
-    SONAR_STATUS=$(curl -skg ${SONAR_STATUS_URL} | sed -e 's/.*status":"//' | sed -e 's/",.*//')                    
+    SONAR_STATUS=$(curl -skg "${SONAR_STATUS_URL}" -u "${SONAR_API_TOKEN}:" | sed -e 's/.*status":"//' | sed -e 's/",.*//')                    
 done
 
 echo "Sonar task returned: ${SONAR_STATUS}"
