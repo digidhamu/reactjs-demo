@@ -9,10 +9,10 @@ source ./get-release-tag.sh $STAGE_UUID
 # Docker Image Upload
 ##
 ./post-progress.sh $STAGE_UUID "Taging releasing label" 10
-docker tag $APP_NAME dcr.daas.digidhamu.com/$APP_NAME:$RELEASE_TAG
+docker tag $APP_NAME gcr.io/digidhamu-k8s/$APP_NAME:$RELEASE_TAG
 
 ./post-progress.sh $STAGE_UUID "Push the labelled image" 20
-docker push dcr.daas.digidhamu.com/$APP_NAME:$RELEASE_TAG
+docker push gcr.io/digidhamu-k8s/$APP_NAME:$RELEASE_TAG
 
 ##
 # API Test Result Upload
