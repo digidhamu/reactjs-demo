@@ -43,14 +43,14 @@ sonar-scanner -Dsonar.host.url=$SONAR_HOST \
 echo "Checking if analysis is finished.."
 
 SONAR_STATUS_URL=$(cat .scannerwork/report-task.txt | grep ceTaskUrl | sed -e 's/ceTaskUrl=//')
-SONAR_STATUS=$(curl -skg "${SONAR_STATUS_URL}" | sed -e 's/.*status":"//' | sed -e 's/",.*//')
+SONAR_STATUS=$(curl -skg "${SONAR_STATUS_URL}" -u "${SONAR_API_TOKEN}:" | sed -e 's/.*status":"//' | sed -e 's/",.*//')
 
 ./post-progress.sh $STAGE_UUID "Waiting for server response" 70
 while ! [ "${SONAR_STATUS}" = "SUCCESS" ] || [ "${SONAR_STATUS}" = "CANCELED" ] || [ "${SONAR_STATUS}" = "FAILED" ];
 do                                    
     echo "Sonar analysis is: ${SONAR_STATUS}. Taking a nap while we wait..."
     sleep 5
-    SONAR_STATUS=$(curl -skg ${SONAR_STATUS_URL} | sed -e 's/.*status":"//' | sed -e 's/",.*//')                    
+    SONAR_STATUS=$(curl -skg "${SONAR_STATUS_URL}" -u "${SONAR_API_TOKEN}:" | sed -e 's/.*status":"//' | sed -e 's/",.*//')                    
 done
 
 echo "Sonar task returned: ${SONAR_STATUS}"
