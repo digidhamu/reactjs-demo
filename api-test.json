@@ -29,7 +29,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "192.168.64.10:32008/",
+					"raw": "http://daas.digidhamu.com",
 					"host": [
 						"192",
 						"168",

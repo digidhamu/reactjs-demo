@@ -6,13 +6,13 @@
 source ./set-script-vars.sh $1
 
 ./post-progress.sh $STAGE_UUID "Setting context" 10
-kubectl config set-context docker-desktop
+# kubectl config set-context docker-desktop
 
 ./post-progress.sh $STAGE_UUID "Running security testing" 20
 docker run --rm \
     -v "$(pwd):/zap/wrk/:rw" \
     -t owasp/zap2docker-stable zap-full-scan.py \
-    -t http://192.168.64.10:32008 \
+    -t http://daas.digidhamu.com/ \
     -g ./results/gen.conf \
     -r ./results/$SEC_TEST_HTML
 

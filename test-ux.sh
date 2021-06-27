@@ -5,7 +5,7 @@ set -o errexit # exit immediately on error
 source ./set-script-vars.sh $1
 
 ./post-progress.sh $STAGE_UUID "Running UX testing" 20
-lighthouse http://192.168.64.10:32008 \
+lighthouse http://daas.digidhamu.com \
     --quiet \
     --chrome-flags="--headless" \
     --output-path=./results/$UX_TEST_HTML
