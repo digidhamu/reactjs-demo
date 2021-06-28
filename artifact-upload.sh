@@ -14,24 +14,23 @@ docker tag $APP_NAME gcr.io/digidhamu-k8s/$APP_NAME:$RELEASE_TAG
 ./post-progress.sh $STAGE_UUID "Push the labelled image" 20
 docker push gcr.io/digidhamu-k8s/$APP_NAME:$RELEASE_TAG
 
+export DATE_TIME=`date "+%Y-%m-%d %H:%M:%S.%3N"`
+
 generate_post_data()
 {
   cat <<EOF
 {
   "action": "CREATED",
   "component": {
-    "componentId": "bnBtLXByb3h5OjA4OTA5YmYwYzg2Y2Y2Yzk2MDBhYWRlODllMWM1ZTI1",
     "id": "08909bf0c86cf6c9600aade89e1c5e25",
-    "group": "types",
     "version": "$RELEASE_TAG",
     "name": "$APP_NAME",
     "format": "docker"
   },
-  "timestamp": "2016-11-14T19:32:13.515+0000",
-  "initiator": "anonymous/127.0.0.1",
-  "nodeId": "7FFA7361-6ED33978-36997BD4-47095CC4-331356BE",
+  "timestamp": "$DATE_TIME",
+  "initiator": "dhamukrish",
   "repositoryName": "gcr.io"
-}  
+}
 EOF
 }
 
