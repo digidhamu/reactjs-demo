@@ -29,14 +29,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "192.168.64.32:32008/",
+					"raw": "http://daas.digidhamu.com",
 					"host": [
-						"192",
-						"168",
-						"64",
-						"32"
+						"daas",
+						"digidhamu",
+						"com"
 					],
-					"port": "32008",
+					"port": "80",
 					"path": [
 						""
 					]

@@ -1,7 +1,12 @@
 #!/bin/bash
 
-GITHUB_REPO=reactjs-demo
+set -o errexit # exit immediately on error
 
+source ./set-script-vars.sh $1
+
+GITHUB_REPO=$APP_NAME
+
+./post-progress.sh $STAGE_UUID "Getting token" 10
 GITHUB_TOKEN=$(curl -n -skg "https://secretmanager.googleapis.com/v1/projects/202626771609/secrets/github-token/versions/1:access" \
     --request "GET" \
     --header "authorization: Bearer $(gcloud auth print-access-token)" \
@@ -9,7 +14,7 @@ GITHUB_TOKEN=$(curl -n -skg "https://secretmanager.googleapis.com/v1/projects/20
     --header "x-goog-user-project: digidhamu-k8s" \
     | jq -r ".payload.data" | base64 --decode)
 
-## Create Pull Request
+./post-progress.sh $STAGE_UUID "Creating pull request" 50
 curl -X "POST" "https://api.github.com/repos/digidhamu/${GITHUB_REPO}/pulls" \
      -H "Content-Type: application/json" \
      -H "Authorization: Bearer $GITHUB_TOKEN" \

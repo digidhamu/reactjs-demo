@@ -17,10 +17,10 @@ spec:
 
     spec:
       imagePullSecrets:
-      - name: art-pull-sec
+      - name: gcr-json-key
       containers:
       - name: reactjs-demo
-        image: minikube:32000/reactjs-demo
+        image: gcr.io/digidhamu-k8s/reactjs-demo
         imagePullPolicy: Always
         ports:
         - containerPort: 80

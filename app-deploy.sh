@@ -1,9 +1,16 @@
 #!/bin/bash
 
-kubectl config set-context minikube
+set -o errexit # exit immediately on error
 
-kubectl delete -f reactjs-demo.yaml
+source ./set-script-vars.sh $1
+
+./post-progress.sh $STAGE_UUID "Setting up context" 10
+# kubectl config set-context minikube
+
+./post-progress.sh $STAGE_UUID "Uninstalling app" 20
+kubectl delete -f $APP_NAME.yaml --ignore-not-found=true
 sleep 10
 
-kubectl apply -f reactjs-demo.yaml
+./post-progress.sh $STAGE_UUID "Installing app" 70
+kubectl create -f $APP_NAME.yaml
 sleep 10
