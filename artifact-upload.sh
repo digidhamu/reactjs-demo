@@ -14,6 +14,9 @@ docker tag $APP_NAME gcr.io/digidhamu-k8s/$APP_NAME:$RELEASE_TAG
 ./post-progress.sh $STAGE_UUID "Push the labelled image" 20
 docker push gcr.io/digidhamu-k8s/$APP_NAME:$RELEASE_TAG
 
+## Delete the local images after the push
+docker rmi gcr.io/digidhamu-k8s/$APP_NAME:$RELEASE_TAG
+
 export DATE_TIME=`date "+%Y-%m-%d %H:%M:%S.%3N"`
 
 generate_post_data()
